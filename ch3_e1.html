@@ -46,6 +46,7 @@ console.log(something);
 console.log("The future says:", future());
 
 //Can be used anywhere withing this scope. Much like ruby methods
+//function
 function future () {
   return "There are not flying cars"
 }
@@ -55,6 +56,7 @@ console.log("The new future says", newFuture());
 //Can only be used after its declarations, in a sense it is more strict 
 //Warning: Can't be use inside an if block, cus you will have a global function defined 
 //that you might not necessarily need.
+//Function value: Works like a value and I can be re assigned like any other variable.
 var newFuture = function () {
   return "I am not supposed to work"
 }

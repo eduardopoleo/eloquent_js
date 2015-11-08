@@ -1,0 +1,19 @@
+<script type="text/javascript">
+  //Closures: A function can return a function. This function will "remember" all
+  // the local variables that were available in their scope
+  function multiplier (factor) {
+    return function  (number) {
+      return number * factor;
+    }
+  }
+
+  //Multiplier returns a function that get stores in twice
+  //factor is a global variable in the scope of the return function
+  var twice = multiplier(20);
+
+  //twice still will remember that "factor" is 20 although the execution is 
+  // not there anymore.
+
+  //We now pass the value 2 corresponding to "number"
+  console.log(twice(2));
+</script>

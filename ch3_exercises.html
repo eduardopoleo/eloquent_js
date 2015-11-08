@@ -1,0 +1,43 @@
+<script type="text/javascript">
+
+  //exercise 1
+  function min (x,y) {
+    var result = x > y ? y : x
+
+    return result;
+  }
+
+  console.log("Ad the minimum is:", min(14,4))
+
+  //exercise 2
+  function isEven (number) {
+    if (number == 0)
+      return true
+    else if (number == 1)
+      return false
+
+    if (number < 0)
+      return isEven(number + 2)
+
+    return isEven(number - 2)
+  }
+
+  console.log("Is this number even", isEven(-20))
+
+  //Exercise 3
+
+  function countBs (word, character) {
+    var wordLength = word.length
+    var counter = 0
+
+    for (n = 0; n < wordLength; n++){
+      if (word.charAt(n) === character){
+        counter++
+      }
+    }
+
+    return counter;
+  }
+
+  console.log("Number of B", countBs("BehBve", "v"))
+</script>
