@@ -1,0 +1,55 @@
+<script>
+  //exercise 1
+  var s = "#";
+  while(s.length <= 7) {
+    console.log(s)
+    s = s + "#"
+  }
+
+  var r = "#"
+  for(counter = 0; counter < 7; counter++ ){
+    console.log(r) 
+    r = r + "#"
+  }
+  
+  x = "#"
+  do {
+    console.log(x);
+    x += "#";
+  } while(x.length <= 7);
+  
+  //exercise 2
+  for(n = 1; n <= 100; n++){
+    if(n%3 == 0 && n%5 == 0)
+      console.log("FizzBuzz")
+    else if( n%5 == 0 && n%3 != 0)
+      console.log("Buzz")
+    else if( n%3 == 0)
+      console.log("Fizz")
+    else
+      console.log(n)
+  }
+  
+  //exercise 3 Solution 1
+
+  var size = 5;
+  var odd_row = "#" 
+  var even_row = " " 
+  var rowNumber = 0;
+
+  for (counter = 1; counter < size; counter++ ){
+    counter%2 == 0 ? odd_row += "#" : odd_row += " "
+    counter%2 != 0 ? even_row += "#" : even_row += " "
+  } 
+
+  do {
+    console.log(odd_row)
+    rowNumber += 1
+    if (rowNumber == size){ break;}
+    
+    console.log(even_row)
+    rowNumber += 1
+    if (rowNumber == size){ break;}
+  } while (true)
+</script>
+

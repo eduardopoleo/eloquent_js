@@ -1,0 +1,66 @@
+<script>
+  //functions are defined as variables
+  //It is not like ruby, you have to explicitly tell it what to return otherwise 
+  //returns null
+  var square = function  (x) {
+    return x*x
+  }
+
+  console.log(square(3))
+
+// new variables are defined by using var otherwise you are just re-assigning the value
+
+var x = "I am outside"
+
+var f1 = function  () {
+  //This a completely new variable that will only live within the scope of f1
+  var x = "Inside f1"
+}
+
+f1();
+console.log(x)
+
+var f2 = function  () {
+  //this value here gets reassigned from outside
+  x = "Inside f2"
+}
+
+f2();
+console.log(x)
+
+//Functions create a local scope but it is not because of the {}
+
+var something = "thing outside the block";
+
+{
+  var something = "thing inside the block";
+  //Do stuff with variable something...
+}
+// Outside of the block again.
+console.log(something);
+
+// There are actually two ways o define function in js
+
+//Way 1
+
+console.log("The future says:", future());
+
+//Can be used anywhere withing this scope. Much like ruby methods
+function future () {
+  return "There are not flying cars"
+}
+
+//Way 2
+console.log("The new future says", newFuture());
+//Can only be used after its declarations, in a sense it is more strict 
+//Warning: Can't be use inside an if block, cus you will have a global function defined 
+//that you might not necessarily need.
+var newFuture = function () {
+  return "I am not supposed to work"
+}
+
+//Javascript does not complain about the number of arguments passed in a function.
+//Extra parameters passed will be ignored
+//Missing parameters will be assigned to undefined.
+
+</script>

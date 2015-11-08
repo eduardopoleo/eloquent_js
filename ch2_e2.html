@@ -1,0 +1,34 @@
+<script>
+  var number = 0;
+
+  while(number <= 12) {
+    console.log(number)
+    number += 1
+  }
+  
+// Goes inside the loop at least once
+  do{
+   var name = prompt("Give me your name please!") 
+  }while(!name)
+  
+  console.log(name)
+
+ //    variable,       condition     increment     
+  for (var number = 0; number <= 10; number += 2){
+    console.log(number)
+  }
+//we can only avoid not using braces if we are using a one-liner but it is much better to use them all the time
+var weather = prompt("What is the weather like ?")
+
+switch (weather){
+  case "rainy":
+    console.log("Remember to bring you umbrella");
+    break;
+  case "sunny":
+    console.log("Nice stuff");
+    break;
+  default:
+    console.log("Unknown weather type");
+    break;
+}
+</script>
