@@ -1,0 +1,46 @@
+<script type="text/javascript">
+  //objects are like ruby hashes
+
+  var day1 = {
+    squirrel: false,
+    events: ["work", "touched tree"],
+    "string property": "this is a string property"
+  }
+
+  //properties can be accessed as 
+  console.log("aa", day1.events)
+  // or
+  console.log("yell", day1["events"])
+
+  console.log("String property:", day1["string property"])
+
+  //but this is not valid
+  // console.log("String property", day1."string property")
+
+  console.log(typeof(day1.events))
+  // => object, which means that arrays are an specific type of objects 
+  // with numbers as properties,
+
+  //This works cus 1 is a property of the array that looks for the element in that position
+  // it must make use of the the bracket notation cus numbers are not legal variable names
+
+  console.log(day1.events[1])
+
+  //Array methods
+    //.push() .pop, add and remove objects at the end of the array
+    //.shift, .unshift() remove and add elements at the beginning of the array
+    //.indexOf() find the index of the element provided. if the element is not found -1 is given
+    //.slice(2,4) slice the array from the element at position 2 to the element at position 3
+    //.slice(2) slice the array from the element at position 2  
+
+// when a function is called an environment variable called arguments is created and 
+// it will resemble and array
+    function sampl () {
+      return arguments
+    }
+
+    console.log(sampl("hey", false, "jamaica"))
+
+    // in is a binary operation that checks for the presence of an object in an specific 
+    // object
+</script>
