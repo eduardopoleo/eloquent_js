@@ -1,0 +1,31 @@
+<script type="text/javascript">
+	function reverseArray (array) {
+		var newArray = [];
+
+		for (var i = array.length - 1; i >= 0; i--) {
+			newArray.push(array[i]);
+		};
+
+		return newArray;
+	}
+
+	function reverseArrayInPlace (array) {
+		var left = null;
+	    var right = null;
+	    var temporary = null;
+	    var length = array.length;
+
+
+	  	for (left = 0, right = length - 1; left < right; left += 1, right -= 1)
+	    {
+	        temporary = array[left] ;
+	        array[left] = array[right];
+	        array[right] = temporary;
+	    }
+
+	    return array;
+	}
+
+	console.log(reverseArray([1,2,3]))
+	console.log(reverseArrayInPlace([1,2,3]))
+</script>
