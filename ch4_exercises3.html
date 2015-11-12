@@ -1,0 +1,49 @@
+<script type="text/javascript">
+	
+
+	list1 = {
+		value: 1,
+		rest : {
+			value : 2,
+			rest : {
+				value : 3,
+				rest : {
+					value  : 4,
+					rest : null
+				}
+			}
+		}
+	}
+
+	function arrayToList (array) {
+		var list = null;
+
+		for (var i = array.length - 1; i >= 0; i--) {
+			list = {
+				value: array[i],
+				rest : list
+			}
+		};
+
+		return list
+	}
+
+	function listToArray (list, array) {
+		array = typeof array !== 'undefined' ? array : [];
+		array.push(list.value)
+
+		if (list.rest === null){
+			return array;
+		} else {
+			list = list.rest;
+			return listToArray(list, array);
+		}
+	}
+
+	var list = arrayToList([1,2,3]);
+	var array = listToArray(list1);
+
+	console.log(list);
+	console.log(array);
+	
+</script>
