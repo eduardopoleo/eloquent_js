@@ -1,0 +1,51 @@
+<script type="text/javascript">
+	// function every(array, predicate){
+	// 	return array.map(function(element){
+	// 		return predicate(element)
+	// 	}).reduce(function(result, current){
+	// 		return result && current
+	// 	}, true)
+	// }
+
+	// function some(array, predicate){
+	// 	return array.map(function(element){
+	// 		return predicate(element)
+	// 	}).reduce(function(result, current){
+	// 		return result || current
+	// 	}, true)
+	// }
+
+	var array = [10,2,30,90]
+
+	//This solution is very eneficient cus has to go though the full arrays twice
+	// So the key is to use the literal for
+
+	function every(array, predicate){
+		for (var i = 0; i < array.length; i++){
+			if (!predicate(array[i])){
+				return false
+			}
+
+		}
+			return true
+	}
+
+	function some(array, predicate){
+		for (var i = 0; i < array.length; i++){
+			if (predicate(array[i])){
+				return true // this will return from the whole function not only the loop which does not make any sense
+			}
+
+			return false
+		}
+	}
+
+	function isBigEnough(element) {
+	  return element >= 10;
+	}
+
+	console.log("Every", every(array, isBigEnough))
+
+	console.log("Some", some(array, isBigEnough))
+
+</script>
