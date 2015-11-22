@@ -1,0 +1,10 @@
+<script type="text/javascript">
+	var array = [[1,2,[3,4]], [4,5,6]]
+
+	var result = array.reduce(function(flat, current){
+		return flat.concat(current)
+	}, [])
+
+	console.log(result)
+
+</script>
