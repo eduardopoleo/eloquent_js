@@ -20,20 +20,42 @@
 
 	console.log(killerRabbit.type)
 
-	//Constructors themselves are not 'molds' but they have an associated : prototype which
-	//will become the mold for all the instances. That is why we have to call
+	// The constructors get a prototype that serve as a mold
 
 	 Rabbit.prototype.color = function(input){} 
 	 Rabbit.prototype.size = function(input){} 
 	 Rabbit.prototype.weight = function(input){} 
 	 Rabbit.prototype.noise = "Yikes"
 
-	 //everytime we want to add a property to the element. the protype is the equivalent of the protoRabbit. I guess doing "new Rabbit" will do something along this lines at some point 
-	 //This is not exactly right but is getting close to the truth 
+	 // The constuctor provides the new keyword
 	 blizzardRabbit = new Rabbit("blizzar")
-	 //Probably the reason contructors exist is that the provide a way to instantiate objects with specific properties.
 
-	 //Prototype can also be used to quickly add properties to all already instantiated objects
-	 //Just run this file and call killerRabbit.noise and will obtain 'Yikes'
+	 //We can use the prototype to give a provide a general property to all the objects 
+
+	 Rabbit.prototype.theeth = "big and nasty"
+	 //now all rabbits will have big and nasty theeth
+
+	 //This could cause interferance 
+	 Object.prototype.nonsense = 'hi'
+		
+	for (var prop in killerRabbit)
+		console.log(prop)
+
+	//will display the nonsense property.
+
+	console.log("toString" in killerRabbit) 
+	//This outputs true because it is a property but no enumerable
+
+	//Enumerables are those properties that we can explicity set through 
+	Rabbit.prototype.color = "red"
+
+	//"toString" is not one of those. To create one of those we have to
+
+	Object.defineProperty(Object.prototype, "hiddenNonsense", {enumerable: false, value: "hi"});
+
+	//Nonsense wont show up if we use for (var name in killerRabbit)
+
+	//and we only want to see the objects own properties we can use
+	console.log(killerRabbit.hasOwnProperty("toString"));
 
 </script>
