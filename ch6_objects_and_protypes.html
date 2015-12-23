@@ -12,8 +12,13 @@
 
 
 	// Or we can use formal constructors which are basically function:
-	function Rabbit(type){
-		this.type = type
+	function Rabbit(type, color){
+		this.type = type;
+		this.color = color;
+	}
+
+	Rabbit.prototype.speak = function(){
+		return "This is a rabit of type " + this.type + "and color " + this.color;
 	}
 
 	var killerRabbit = new Rabbit("killer")
@@ -22,31 +27,31 @@
 
 	// The constructors get a prototype that serve as a mold
 
-	 Rabbit.prototype.color = function(input){} 
-	 Rabbit.prototype.size = function(input){} 
-	 Rabbit.prototype.weight = function(input){} 
+	 Rabbit.prototype.color = function(input){}
+	 Rabbit.prototype.size = function(input){}
+	 Rabbit.prototype.weight = function(input){}
 	 Rabbit.prototype.noise = "Yikes"
 
 	 // The constuctor provides the new keyword
 	 blizzardRabbit = new Rabbit("blizzar")
 
-	 //We can use the prototype to give a provide a general property to all the objects 
+	 //We can use the prototype to give a provide a general property to all the objects
 
 	 Rabbit.prototype.theeth = "big and nasty"
 	 //now all rabbits will have big and nasty theeth
 
-	 //This could cause interferance 
+	 //This could cause interferance
 	 Object.prototype.nonsense = 'hi'
-		
+
 	for (var prop in killerRabbit)
 		console.log(prop)
 
 	//will display the nonsense property.
 
-	console.log("toString" in killerRabbit) 
+	console.log("toString" in killerRabbit)
 	//This outputs true because it is a property but no enumerable
 
-	//Enumerables are those properties that we can explicity set through 
+	//Enumerables are those properties that we can explicity set through
 	Rabbit.prototype.color = "red"
 
 	//"toString" is not one of those. To create one of those we have to

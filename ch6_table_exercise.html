@@ -1,0 +1,170 @@
+<script type="text/javascript">
+  var MOUNTAINS = [
+    {name: "Kilimanjaro", height: 5895, country: "Tanzania"},
+    {name: "Everest", height: 8848, country: "Nepal"},
+    {name: "Mount Fuji", height: 3776, country: "Japan"},
+    {name: "Mont Blanc", height: 4808, country: "Italy/France"},
+    {name: "Vaalserberg", height: 323, country: "Netherlands"},
+    {name: "Denali", height: 6168, country: "United States"},
+    {name: "Popocatepetl", height: 5465, country: "Mexico"}
+  ];
+
+  rows = [["cell1", "cell2", "cell2"], ["cell4", "cell5", "cell6"]];
+
+  //Each cell has min width and I want to loop through each of them to find
+  //the maximun among them
+  function rowHeights(rows){
+      return rows.map(function(row){
+          return row.reduce(function(max, cell){
+            return Math.max(max, cell.minHeight());
+          }, 0)
+      });
+  }
+  //OUTPUTS: and array with length 2 and each element is the max height per cell.
+
+  function colWidths(rows){
+    return rows[0].map(function(_, i){
+      //We keep the index to reduce over the elements of the same index
+      //that way we find the min width require per each column
+      return rows.reduce(function(max, row){
+        return Math.max(max, row[i].minWidth());
+      }, 0)
+    })
+  }
+
+  function drawTable(rows) {
+    var heights = rowHeights(rows);
+    var widths = colWidths(rows);
+
+    function drawLine(blocks, lineNo) {
+      return blocks.map(function(block) {
+        return block[lineNo];
+        //["name", "height", "country"]
+      }).join(" "); //=> "name height country" the first time
+                    //=> "---- ------ -------" the second time
+    }
+
+    function drawRow(row, rowNum) {
+      //row [cell1, cell2, cell3];
+      var blocks = row.map(function(cell, colNum) {
+        return cell.draw(widths[colNum], heights[rowNum]);
+      });
+      //blocks: [["name", "------"], ["height", "------"], ["country", "------"]];
+      return blocks[0].map(function(_, lineNo) {
+        //Again this shit is done only to keep track of the lineNumber and
+        //make sure we join the right elements.
+        return drawLine(blocks, lineNo);
+        //["name height country", "---- ------ -------"]
+      }).join("\n"); //"name height country"
+                    //" ---- ------ -------"
+    }
+
+    return rows.map(drawRow).join("\n");
+    //["name height country\n---- ------ -------", "Kilimanjaro 5895 Tanzania"]
+    //And then joins them with a new line
+  }
+
+  //This function creates empty strings of a given length
+  function repeat(string, times) {
+    var result = "";
+    for (var i = 0; i < times; i++)
+      //string = " ", times = 2
+      result += string;
+      // result = "  "
+    return result;
+  }
+
+  //Class definition
+  function TextCell(text) {
+    this.text = text.split("\n");
+  }
+
+  //Adding methods to the TextCell class
+  TextCell.prototype.minWidth = function() {
+    //text = ["name", "------"]
+    return this.text.reduce(function(width, line) {
+      return Math.max(width, line.length); //shouldn't this be just the length of the first element
+    }, 0);
+  };
+
+  TextCell.prototype.minHeight = function() {
+    //text = ["name", "----"]
+    return this.text.length; //The height is equal to the length of the array
+  };
+  //width and heights are the min width per column and min height per row
+  TextCell.prototype.draw = function(width, height) {
+    var result = [];
+    for (var i = 0; i < height; i++) {
+      //text = ["name", "------"]
+      var line = this.text[i] || "";
+      //line = "name"
+      result.push(line + repeat(" ", width - line.length));
+      // result.push("name", repeat(" ", 6 - 4))
+      //Adds empty spaces to the original string to make it fit the right min req width
+      // result = ["name  ", "----  "]
+    }
+    return result;
+  };
+
+  //This is a cell that will contain another cell.
+  function UnderlinedCell(inner) {
+    this.inner = inner;
+  }
+  //Returns the minwidth of the inner cell
+  UnderlinedCell.prototype.minWidth = function() {
+    return this.inner.minWidth();
+  };
+
+  //Returns the minheight of the inner cell + 1 I guess to account for ---- lines whatever
+  UnderlinedCell.prototype.minHeight = function() {
+    return this.inner.minHeight() + 1;
+  };
+
+  //we provide the key name and we extract the row content from it.
+  UnderlinedCell.prototype.draw = function(width, height) {
+    return this.inner.draw(width, height - 1)
+      .concat([repeat("-", width)]);
+  };
+
+  function dataTable(data) {
+    var keys = Object.keys(data[0]);
+
+    var headers = keys.map(function(name) {
+      return new UnderlinedCell(new TextCell(name));
+    });
+
+    var body = data.map(function(row) {
+      return keys.map(function(name) {
+        var value = row[name];
+
+        if (typeof value == "number")
+          return new RTextCell(String(value));
+        else
+          return new TextCell(String(value));
+      });
+    });
+
+    return [headers].concat(body);
+  }
+
+  //
+  function RTextCell(text) {
+    //Initialize the textcell inside R.. so that is has all the methods
+    TextCell.call(this, text);
+  }
+
+  //Why do I need this, isn't the inheritance suppoused to take care of this.?
+  RTextCell.prototype = Object.create(TextCell.prototype);
+  //Overwrites the draw method. Why not just implement this directly into the
+  //textCell class?
+  RTextCell.prototype.draw = function(width, height) {
+    var result = [];
+    for (var i = 0; i < height; i++) {
+      var line = this.text[i] || "";
+      result.push(repeat(" ", width - line.length) + line);
+    }
+    return result;
+  };
+
+  console.log(drawTable(dataTable(MOUNTAINS)));
+</script>
