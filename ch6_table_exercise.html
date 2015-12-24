@@ -107,6 +107,25 @@
   };
 
   //This is a cell that will contain another cell.
+  function StretchCell(inner, width, height){
+    this.width = width;
+    this.height = height;
+    this.inner = inner;
+  }
+
+  StretchCell.prototype.minWidth = function(){
+    return Math.max(this.inner.minWidth(), this.width);
+  }
+
+  StretchCell.prototype.minHeight = function(){
+    return Math.max(this.inner.minHeight(), this.height);
+  }
+
+  StretchCell.prototype.draw = function(){
+    return this.inner.draw(this.minWidth(), this.minHeight());
+  }
+
+
   function UnderlinedCell(inner) {
     this.inner = inner;
   }
@@ -167,4 +186,7 @@
   };
 
   console.log(drawTable(dataTable(MOUNTAINS)));
+
+  ///Exercise 2
+
 </script>
